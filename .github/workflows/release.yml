@@ -127,6 +127,8 @@ jobs:
         cp -r sdd-package-base/* sdd-claude-package/
         mkdir -p sdd-claude-package/.claude/commands
         generate_commands "claude" "md" "\$ARGUMENTS" "sdd-claude-package/.claude/commands"
+        # Replace agent-specific placeholders for Claude
+        sed -i 's/{{AGENT_SPECIFIC_CHECKLIST}}/- [ ] `\/.claude\/commands\/plan.md` - Update if planning process changes\n- [ ] `\/.claude\/commands\/tasks.md` - Update if task generation affected\n- [ ] `\/CLAUDE.md` - Update runtime development guidelines/' sdd-claude-package/memory/constitution_update_checklist.md
         echo "Created Claude Code package"
         
         # Create Gemini CLI package  
@@ -134,6 +136,8 @@ jobs:
         cp -r sdd-package-base/* sdd-gemini-package/
         mkdir -p sdd-gemini-package/.gemini/commands
         generate_commands "gemini" "toml" "{{args}}" "sdd-gemini-package/.gemini/commands"
+        # Replace agent-specific placeholders for Gemini
+        sed -i 's/{{AGENT_SPECIFIC_CHECKLIST}}/- [ ] `\/.gemini\/commands\/plan.toml` - Update if planning process changes\n- [ ] `\/.gemini\/commands\/tasks.toml` - Update if task generation affected\n- [ ] `\/GEMINI.md` - Update runtime development guidelines/' sdd-gemini-package/memory/constitution_update_checklist.md
         if [ -f "agent_templates/gemini/GEMINI.md" ]; then
           cp agent_templates/gemini/GEMINI.md sdd-gemini-package/GEMINI.md
         fi
@@ -144,6 +148,8 @@ jobs:
         cp -r sdd-package-base/* sdd-copilot-package/
         mkdir -p sdd-copilot-package/.github/prompts
         generate_commands "copilot" "prompt.md" "\$ARGUMENTS" "sdd-copilot-package/.github/prompts"
+        # Replace agent-specific placeholders for Copilot
+        sed -i 's/{{AGENT_SPECIFIC_CHECKLIST}}/- [ ] `\/.github\/prompts\/plan.prompt.md` - Update if planning process changes\n- [ ] `\/.github\/prompts\/tasks.prompt.md` - Update if task generation affected\n- [ ] `\/.github\/copilot-instructions.md` - Update runtime development guidelines/' sdd-copilot-package/memory/constitution_update_checklist.md
         echo "Created GitHub Copilot package"
         
         # Create archive files for each package
